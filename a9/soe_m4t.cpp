@@ -48,8 +48,9 @@ multiply_acc4 (A r, N n, A a) -> A
     }
 }
 
+template <typename N, typename A>
 constexpr auto
-multiply4 (int n, int a) -> int
+multiply4 (N n, A a) -> A
 {
   while (!odd (n))
     {
