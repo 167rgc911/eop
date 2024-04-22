@@ -3,19 +3,20 @@
  *
  *       Filename:  soe_ma4.cpp
  *
- *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian Multiplication
+ *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian
+ * Multiplication
  *
  *                  r + na
  *
- *                  iterative 
+ *                  iterative
  *
  *        Version:  1.0
  *        Created:  04/22/24 20:20:48
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  rgc (), 
- *   Organization:  
+ *         Author:  rgc (),
+ *   Organization:
  *
  * =====================================================================================
  */
@@ -45,7 +46,7 @@ multiply_acc4 (int r, int n, int a) -> int
           if (n == 1)
             return r;
         }
-      n = half(n);
+      n = half (n);
       a = a + a;
     }
 }

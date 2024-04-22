@@ -3,7 +3,8 @@
  *
  *       Filename:  soe_ma1.cpp
  *
- *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian Multiplication
+ *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian
+ * Multiplication
  *
  *                  r + na
  *

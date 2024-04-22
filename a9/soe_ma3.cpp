@@ -3,7 +3,8 @@
  *
  *       Filename:  soe_ma3.cpp
  *
- *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian Multiplication
+ *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian
+ * Multiplication
  *
  *                  r + na
  *
@@ -14,8 +15,8 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  rgc (), 
- *   Organization:  
+ *         Author:  rgc (),
+ *   Organization:
  *
  * =====================================================================================
  */
@@ -43,7 +44,7 @@ multiply_acc3 (int r, int n, int a) -> int
       if (n == 1)
         return r;
     }
-  n = half(n);
+  n = half (n);
   a = a + a;
   return multiply_acc3 (r, n, a);
 }

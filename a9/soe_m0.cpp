@@ -3,7 +3,8 @@
  *
  *       Filename:  soe_m0.cpp
  *
- *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian Multiplication
+ *    Description:  from A9 Videos YT; Alex Stepanov and Egyptian
+ * Multiplication
  *
  *                  distributivity
  *

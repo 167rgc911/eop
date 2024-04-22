@@ -3,15 +3,15 @@
  *
  *       Filename:  soe_m4.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  04/22/24 20:37:45
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  rgc (), 
- *   Organization:  
+ *         Author:  rgc (),
+ *   Organization:
  *
  * =====================================================================================
  */
@@ -41,7 +41,7 @@ multiply_acc4 (int r, int n, int a) -> int
           if (n == 1)
             return r;
         }
-      n = half(n);
+      n = half (n);
       a = a + a;
     }
 }
@@ -49,14 +49,15 @@ multiply_acc4 (int r, int n, int a) -> int
 constexpr auto
 multiply4 (int n, int a) -> int
 {
-  while (!odd(n))
+  while (!odd (n))
     {
       a = a + a;
-      n = half(n);
+      n = half (n);
     }
-  if (n == 1) return a;
+  if (n == 1)
+    return a;
   // even(n - 1) => n - 1 != 1
-  return multiply_acc4 (a, half(n - 1), a + a);
+  return multiply_acc4 (a, half (n - 1), a + a);
 }
 
 int
