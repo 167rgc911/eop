@@ -28,9 +28,9 @@ half (int n) -> int
 }
 
 auto
-odd (int n) -> int
+odd (int n) -> bool
 {
-  return (n % 2);
+  return (n & 1);
 }
 
 constexpr auto
