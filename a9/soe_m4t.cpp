@@ -32,7 +32,7 @@ odd (int n) -> bool
 
 template <typename N, typename A>
 constexpr auto
-multiply_acc4 (A r, N n, A a) -> int
+multiply_acc4 (A r, N n, A a) -> A
 {
   while (true)
     {
