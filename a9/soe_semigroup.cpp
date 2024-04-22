@@ -17,6 +17,7 @@
  */
 
 #include <iostream>
+#include <cassert>
 
 auto
 half (int n) -> int
