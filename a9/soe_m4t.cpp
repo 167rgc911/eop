@@ -52,6 +52,7 @@ template <typename N, typename A>
 constexpr auto
 multiply4 (N n, A a) -> A
 {
+  assert (n > 0);
   while (!odd (n))
     {
       a = a + a;
