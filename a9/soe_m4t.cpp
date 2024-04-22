@@ -34,6 +34,7 @@ template <typename N, typename A>
 constexpr auto
 multiply_acc4 (A r, N n, A a) -> A
 {
+  assert (n >= 0);
   while (true)
     {
       if (odd (n))
