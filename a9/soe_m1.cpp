@@ -38,7 +38,7 @@
 auto
 half (int n) -> int
 {
-  return (n / 2);
+  return (n >> 1);
 }
 
 auto
