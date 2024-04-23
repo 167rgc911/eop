@@ -19,17 +19,7 @@
 #include <iostream>
 #include <cassert>
 
-auto
-half (int n) -> int
-{
-  return (n >> 1);
-}
-
-auto
-odd (int n) -> bool
-{
-  return (n & 1);
-}
+#include "soe_lib.h"
 
 template <typename N, typename A>
 auto
@@ -96,6 +86,6 @@ power_group (A a, N n) -> A
 int
 main ()
 {
-  std::cout << power_semigroup (2, 2) << '\n';
+  std::cout << power_semigroup (2, 30) << '\n';
   return 0;
 }
