@@ -64,5 +64,9 @@ int
 main ()
 {
   std::cout << multiply4 (41, 59) << '\n';
+  std::cout << multiply4 (13, 30) << '\n';
+  std::cout << multiply4 (10, 20) << '\n';
+  std::cout << multiply4 (1, 1) << '\n';
+  std::cout << multiply4 (1, 0) << '\n';
   return 0;
 }
