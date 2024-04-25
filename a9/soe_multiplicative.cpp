@@ -26,6 +26,8 @@ auto
 power_accumulate_semigroup (A r, A a, N n) -> A
 {
   assert (n >= 0);
+  if (n == 0)
+    return r;
   while (true)
     {
       if (odd (n))
