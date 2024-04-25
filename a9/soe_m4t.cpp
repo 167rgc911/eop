@@ -19,20 +19,10 @@
 #include <iostream>
 #include <cassert>
 
-auto
-half (int n) -> int
-{
-  return (n >> 1);
-}
-
-auto
-odd (int n) -> bool
-{
-  return (n & 1);
-}
+#include "soe_lib.h"
 
 template <typename N, typename A>
-constexpr auto
+auto
 multiply_acc4 (A r, N n, A a) -> A
 {
   assert (n >= 0);
@@ -50,7 +40,7 @@ multiply_acc4 (A r, N n, A a) -> A
 }
 
 template <typename N, typename A>
-constexpr auto
+auto
 multiply4 (N n, A a) -> A
 {
   assert (n > 0);

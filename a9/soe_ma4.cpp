@@ -23,19 +23,9 @@
 
 #include <iostream>
 
-auto
-half (int n) -> int
-{
-  return (n >> 1);
-}
+#include "soe_lib.h"
 
 auto
-odd (int n) -> bool
-{
-  return (n & 1);
-}
-
-constexpr auto
 multiply_acc4 (int r, int n, int a) -> int
 {
   while (true)
