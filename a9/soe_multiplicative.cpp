@@ -51,7 +51,7 @@ power_semigroup (A a, N n) -> A
     }
   if (n == 1)
     return a;
-  return power_accumulate_semigroup (a, a * a, half (n - 1));
+  return power_accumulate_semigroup (a, a * a, half (n));
 }
 
 template <typename N, typename A>

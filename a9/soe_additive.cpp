@@ -26,6 +26,8 @@ auto
 multiply_accumulate_semigroup (A r, N n, A a) -> A
 {
   assert (n >= 0);
+  if (n == 0)
+    return r;
   while (true)
     {
       if (odd (n))
@@ -51,7 +53,7 @@ multiply_semigroup (N n, A a) -> A
     }
   if (n == 1)
     return a;
-  return multiply_accumulate_semigroup (a, half (n - 1), a + a);
+  return multiply_accumulate_semigroup (a, half (n), a + a);
 }
 
 template <typename N, typename A>
