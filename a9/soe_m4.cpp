@@ -57,7 +57,7 @@ multiply4 (int n, int a) -> int
   if (n == 1)
     return a;
   // even(n - 1) => n - 1 != 1
-  return multiply_acc4 (a, half (n - 1), a + a);
+  return multiply_acc4 (a, half (n), a + a);
 }
 
 int
