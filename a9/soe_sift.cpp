@@ -3,7 +3,7 @@
  *
  *       Filename:  soe_sift.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  04/26/24 09:49:49
@@ -24,18 +24,66 @@
 
 #include "soe_lib.h"
 
-int
-main()
+struct num_s
 {
-  std::vector<int> v(55);
-  std::iota(v.begin(), v.end(), 0);
-  sift<int, std::vector<int>::iterator> (v.begin(), 55);
+  std::vector<int> prime;
+  std::vector<int> value;
+  int sz;
 
-  auto x = 0;
-  for (auto i : v)
-    {
-      std::cout << x  << " : " << i << '\n';
-      x++;
-    }
+  num_s (int n) : value (n), prime (n)
+  {
+    std::iota (value.begin (), value.end (), 3);
+    std::iota (prime.begin (), prime.end (), 3);
+    sz = n;
+    std::cout << "[created] v: " << value.size () << " p: " << prime.size ()
+              << '\n';
+  }
+
+  void
+  display ()
+  {
+    auto pit = prime.begin ();
+    auto vit = value.begin ();
+    auto n = prime.size ();
+    for (auto i = 0; i < n; ++i)
+      {
+        if (*pit)
+          {
+            std::cout << *vit << " : " << std::boolalpha
+                      << static_cast<bool> (*pit) << ", ";
+          }
+        ++pit;
+        ++vit;
+      }
+  }
+
+  void
+  sift_s ()
+  {
+    // remove evens
+    prime.erase (std::remove_if (prime.begin (), prime.end (),
+                                 [] (int n) { return even (n); }),
+                 prime.end ());
+    value.erase (std::remove_if (value.begin (), value.end (),
+                                 [] (int n) { return even (n); }),
+                 value.end ());
+    std::cout << "[sift evens] v: " << value.size () << " p: " << prime.size ()
+              << '\n';
+    sift (prime.begin (), sz);
+  }
+
+  int
+  size ()
+  {
+    return sz;
+  }
+};
+
+int
+main ()
+{
+  num_s n (200);
+  n.sift_s ();
+  n.display ();
   return 0;
 }
