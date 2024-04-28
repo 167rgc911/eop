@@ -62,14 +62,14 @@ struct num_s
   {
     // remove evens
     prime.erase (std::remove_if (prime.begin (), prime.end (),
-                                 [] (int n) { return even (n); }),
+                                 [] (int n) { return Algo::even (n); }),
                  prime.end ());
     value.erase (std::remove_if (value.begin (), value.end (),
-                                 [] (int n) { return even (n); }),
+                                 [] (int n) { return Algo::even (n); }),
                  value.end ());
     std::cout << "[sift evens] v: " << value.size () << " p: " << prime.size ()
               << '\n';
-    sift (prime.begin (), sz);
+    Algo::sift (prime.begin (), sz);
   }
 
   int

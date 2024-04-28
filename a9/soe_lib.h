@@ -28,6 +28,9 @@
 
 #include "concepts.h"
 
+namespace Algo
+{
+
 template <Integer N>
 auto
 half (N n) -> N
@@ -336,6 +339,8 @@ multiplicative_inverse (N a, N n) -> N
   if (p.first < N (0))
     return p.first + n;
   return p.first;
+}
+
 }
 
 #endif
