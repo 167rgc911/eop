@@ -35,7 +35,10 @@
 #define MultiplicativeMonoid typename
 
 #define RandomAccessIterator typename
+#define InputIterator typename
 
 #define EuclideanDomain typename
+
+#define Semiring typename
 
 #endif
