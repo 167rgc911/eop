@@ -36,4 +36,6 @@
 
 #define RandomAccessIterator typename
 
+#define EuclideanDomain typename
+
 #endif

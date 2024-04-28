@@ -271,4 +271,71 @@ fermat_test (N n, N witness) -> bool
   return exp == N (1);
 }
 
+template <Integer N>
+auto
+is_carmichael (N n) -> bool
+{
+  return false;
+}
+
+template <Integer N>
+bool
+miller_rabin_test (N n, N q, N k, N w)
+{
+  modulo_multiply<N> op (n);
+  N x = power_semigroup (w, q, op);
+  if (x == N (1) || x == n - N (1))
+    return true;
+  for (N i (1); i < k; ++i)
+    {
+      x = op (x, x);
+      if (x == n - N (1))
+        return true;
+      if (x == N (1))
+        return false;
+    }
+  return false;
+}
+
+// RSA
+// encode
+// power_semigroup(plain_text_block, pub, modulo_multiply<N>(n))
+// decode
+// power_semigroup(cipher_text_block, prv, modulo_multiply<N>(n))
+
+template <EuclideanDomain N>
+std::pair<N, N>
+extended_gcd (N a, N b)
+{
+  if (b == 0)
+    return std::make_pair (N (1), a);
+  N u (1);
+  N v (0);
+  while (true)
+    {
+      N q = a / b;
+      a -= q * b; // a = a % b;
+      if (a == N (0))
+        return std::make_pair (v, b);
+      u -= q * v;
+      q = b / a;
+      b -= q * a; // b = b % a;
+      if (b == N (0))
+        return std::make_pair (u, a);
+      v -= q * u;
+    }
+}
+
+template <Integer N>
+auto
+multiplicative_inverse (N a, N n) -> N
+{
+  std::pair<N, N> p = extended_gcd (a, n);
+  if (p.second != N (1))
+    return N (0);
+  if (p.first < N (0))
+    return p.first + n;
+  return p.first;
+}
+
 #endif
