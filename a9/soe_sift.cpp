@@ -58,7 +58,7 @@ struct num_s
   }
 
   void
-  sift_s ()
+  sift ()
   {
     // remove evens
     prime.erase (std::remove_if (prime.begin (), prime.end (),
@@ -83,7 +83,7 @@ int
 main ()
 {
   num_s n (200);
-  n.sift_s ();
+  n.sift ();
   n.display ();
   return 0;
 }
