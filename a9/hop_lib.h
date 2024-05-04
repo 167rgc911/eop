@@ -255,6 +255,33 @@ polynomial_value (I f, I l, R x) -> R
   return sum;
 }
 
+/*
+ * Journey 2; page 102
+polynomial<real> gcd_stevin (polynomial<real> m, polynomial<real> n)
+{
+  while (n != polynomial<real> (0))
+    {
+      polynomial<real> t = remainder (m,  n);
+      m = n;
+      n = t;
+    }
+  return m;
+}
+ */
+
+/*
+ * Journey 2; page 102
+complex<integer> gcd_gauss (complex<integer> m, complex<integer> n)
+{
+  while (real(n) != 0 || imag(n) != 0) {
+    complex<integer> t = m % n;
+    m = n;
+    n = t;
+  }
+  return m;
+}
+ */
+
 template <EuclideanDomain R>
 auto
 gcd_noether (R m, R n) -> R
