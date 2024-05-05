@@ -55,5 +55,61 @@ main ()
 
   std::cout << '\n';
 
+  Algo::rotate (n.begin (), n.begin () + m, n.end ());
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::rotate2 (n.begin (), n.begin () + m, n.end ());
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::three_reverse_rotate (n.begin (), n.begin () + m, n.end ());
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::rotate4 (n.begin (), n.begin () + m, n.end ());
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::reverse_until (n.begin (), n.begin () + m, n.end ());
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::reverse_n (n.begin (), n.end (), 10);
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
+  Algo::reverse6 (n.begin (), n.end (), std::random_access_iterator_tag{});
+  [n] () {
+    for (auto v : n)
+      std::cout << v << ", ";
+  }();
+
+  std::cout << '\n';
+
   return 0;
 }

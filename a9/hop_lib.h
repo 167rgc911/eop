@@ -454,6 +454,16 @@ swap_ranges (I0 f0, I1 f1, N n) -> std::pair<I0, I1>
 }
 
 /*
+ * Journey 2; page 278
+ */
+template <ForwardIterator I0, ForwardIterator I1, Integer N>
+auto
+swap_ranges_n (I0 f0, I1 f1, N n0, N n1) -> std::pair<I0, I1>
+{
+  return std::pair<I0, I1> (f0, f1);
+}
+
+/*
  * Journey 2; page 286
  */
 template <ForwardIterator I>
@@ -479,6 +489,277 @@ gries_mills_rotate (I f, I m, I l)
     }
   return; // u == v
 }
+
+/*
+ * Journey 2; page 293
+ */
+template <ForwardIterator I>
+auto
+rotate_unguarded (I f, I m, I l, I m1) -> I
+{
+  // assert (f != m && m != l)
+  std::pair<I, I> p = swap_ranges (f, m, m, l);
+  while (p.first != m || p.second != l)
+    {
+      f = p.first;
+      if (m == f)
+        m = p.second;
+      p = swap_ranges (f, m, m, l);
+    }
+  return m1;
+}
+
+/*
+ * Journey 2; page 294
+ */
+template <ForwardIterator I>
+auto
+rotate (I f, I m, I l) -> I
+{
+  if (f == m)
+    return l;
+  if (m == l)
+    return f;
+  std::pair<I, I> p = swap_ranges (f, m, m, l);
+  while (p.first != m || p.second != l)
+    {
+      if (p.second == l)
+        return rotate_unguarded (p.first, m, l, p.first);
+      f = m;
+      m = p.second;
+      p = swap_ranges (f, m, m, l);
+    }
+  return m;
+}
+
+/*
+ * Journey 2; page 296
+ */
+template <ForwardIterator I, Transformation F>
+void
+cycle_from (I i, F from)
+{
+  typedef typename std::iterator_traits<I>::value_type V;
+  V tmp = *i;
+  I start = i;
+  for (I j = from (i); j != start; j = from (j))
+    {
+      *i = *j;
+      i = j;
+    }
+  *i = tmp;
+}
+
+/*
+ * Journey 2; page 297
+ */
+template <RandomAccessIterator I>
+
+struct rotate_transform
+{
+  typedef typename std::iterator_traits<I>::difference_type N;
+  N plus;
+  N minus;
+  I m1;
+  rotate_transform (I f, I m, I l)
+      : plus (m - f), minus (m - l), m1 (f + (l - m))
+  {
+  }
+  I
+  operator() (I i) const
+  {
+    return i + ((i < m1) ? plus : minus);
+  }
+};
+
+/*
+ * Journey 2; page 298
+ */
+template <RandomAccessIterator I>
+auto
+rotate2 (I f, I m, I l) -> I
+{
+  if (f == m)
+    return l;
+  if (m == l)
+    return f;
+  typedef typename std::iterator_traits<I>::difference_type N;
+  N d = gcd (m - f, l - m);
+  rotate_transform<I> rotator (f, m, l);
+  while (d-- > 0)
+    cycle_from (f + d, rotator);
+  return rotator.m1;
+}
+
+/*
+ * Journey 2; page 299
+ */
+template <BidirectionalIterator I>
+void
+three_reverse_rotate (I f, I m, I l)
+{
+  reverse (f, m);
+  reverse (m, l);
+  reverse (f, l);
+}
+
+/*
+ * Journey 2; page 301
+ */
+template <BidirectionalIterator I>
+auto
+reverse_until (I f, I m, I l) -> std::pair<I, I>
+{
+  while (f != m && m != l)
+    std::swap (*f++, *--l);
+  return std::pair<I, I> (f, l);
+}
+
+/*
+ * Journey 2; page 302
+ */
+template <BidirectionalIterator I>
+auto
+rotate3 (I f, I m, I l, std::bidirectional_iterator_tag) -> I
+{
+  reverse (f, m);
+  reverse (m, l);
+  std::pair<I, I> p = reverse_until (f, m, l);
+  reverse (p.first, p.second);
+  if (m == p.first)
+    return p.second;
+  return p.first;
+}
+
+/*
+ * Journey 2; page 303
+ */
+template <ForwardIterator I>
+auto
+rotate4 (I f, I m, I l) -> I
+{
+  typename std::iterator_traits<I>::iterator_category c;
+  return rotate3 (f, m, l, c);
+}
+
+/*
+ * Journey 2; page 304
+ */
+template <BidirectionalIterator I>
+void
+reverse5 (I f, I l, std::bidirectional_iterator_tag)
+{
+  while (f != l && f != --l)
+    std::swap (*f++, *l);
+}
+
+/*
+ * Journey 2; page 306
+ */
+template <BidirectionalIterator I, Integer N>
+void
+reverse_n (I f, I l, N n)
+{
+  n >>= 1;
+  while (n-- > N (0))
+    {
+      std::swap (*f++, *--l);
+    }
+}
+
+/*
+ * Journey 2; page 308
+ */
+template <RandomAccessIterator I>
+void
+reverse6 (I f, I l, std::random_access_iterator_tag)
+{
+  reverse_n (f, l, l - f);
+}
+
+/*
+ * Journey 2; page 309
+ */
+template <ForwardIterator I, BinaryInteger N>
+auto
+reverse_recursive (I f, N n) -> I
+{
+  if (n == 0)
+    return f;
+  if (n == 1)
+    return ++f;
+  N h = n >> 1;
+  I m = reverse_recursive (f, h);
+  std::advance (m, n & 1);
+  I l = reverse_recursive (m, h);
+  swap_ranges_n (f, m, h);
+  return l;
+}
+
+/*
+ * Journey 2; page 310
+ */
+template <ForwardIterator I>
+void
+reverse7 (I f, I l, std::forward_iterator_tag)
+{
+  reverse_recursive (f, distance (f, l));
+}
+
+/*
+ * Journey 2; page 311
+ */
+template <ForwardIterator I>
+void
+reverse8 (I f, I l)
+{
+  typename std::iterator_traits<I>::iterator_category c;
+  reverse (f, l, c);
+}
+
+/*
+ * Journey 2; page 314
+ */
+template <ForwardIterator I, Integer N, BidirectionalIterator B>
+auto
+reverse_n_with_buffer (I f, N n, B buffer) -> I
+{
+  return reverse_copy (buffer, copy_n (f, n, buffer), f);
+}
+
+/*
+ * Journey 2; page 315
+ */
+template <BidirectionalIterator I, OutputIterator O>
+auto
+reverse_copy (I f, I l, O r) -> O
+{
+  while (f != l)
+    *r++ = *--l;
+  return r;
+}
+
+/*
+ * Journey 2; page 317
+ */
+template <ForwardIterator I, Integer N, BidirectionalIterator B>
+auto
+reverse_n_adaptive (I f, N n, B b, N b_n) -> I
+{
+  if (n == N (0))
+    return f;
+  if (n == N (1))
+    return ++f;
+  if (n <= b_n)
+    return reverse_n_with_buffer (f, n, b);
+  N h = n >> 1;
+  I m = reverse_n_adaptive (f, h, b, b_n);
+  advance (m, n & 1);
+  I l = reverse_n_adaptive (m, h, b, b_n);
+  swap_ranges_n (f, m, h);
+  return l;
+}
+
 }
 
 #endif
