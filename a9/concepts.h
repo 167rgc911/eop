@@ -45,5 +45,10 @@
 #define BinaryInteger typename
 
 #define ForwardIterator typename
+#define RandomAccessIterator typename
+#define BidirectionalIterator typename
+#define OutputIterator typename
+
+#define Transformation typename
 
 #endif
