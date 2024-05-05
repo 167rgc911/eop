@@ -295,11 +295,12 @@ gcd_noether (R m, R n) -> R
   return m;
 }
 
-}
-
+/*
+ * Journey 2; page 195-198
+ */
 template <BinaryInteger I>
 auto
-stein_gcd (I m, I n) -> I
+stein_gcd0 (I m, I n) -> I
 {
   if (m < I (0))
     m = -m;
@@ -339,6 +340,133 @@ stein_gcd (I m, I n) -> I
 
   // m = n
   return m << min (d_m, d_n);
+}
+
+/*
+ * Journey 2; page 215-218
+ * need to implement page 212
+ */
+/*
+template <SteinDomain I>
+auto
+stein_gcd (I m, I n) -> I
+{
+  if (m == I (0))
+    return n;
+  if (n == I (0))
+    return m;
+
+  // m > 0 ^ n > 0
+  I d_m = 0;
+  while (divisible_by_smallest_prime (m))
+    {
+      m = divide_by_smallest_prime (m);
+      ++d_m;
+    }
+
+  I d_n = 0;
+  while (divisible_by_smallest_prime (n))
+    {
+      n = divide_by_smallest_prime (n);
+      ++d_n;
+    }
+
+  // odd (m) ^ odd (n)
+  while (! is_associate (m, n))
+    {
+      if (norm (n) > norm (m))
+        swap (n, m);
+      m = reduce_associate_remainders (n, m);
+
+      do
+        m = divide_by_smallest_prime (m);
+      while (divisible_by_smallest_prime (m));
+    }
+
+  // m = n
+  I p = smallest_prime<I>();
+  return m * power (p, min (d_m, d_n));
+}
+ */
+
+/*
+ * Journey 2; page 253
+ */
+template <EuclideanDomain N>
+auto
+extended_gcd1 (N a, N b) -> std::pair<N, N>
+{
+  N x0 (1);
+  N x1 (0);
+  while (b != N (0))
+    {
+      // compute new r and x
+      std::pair<N, N> p = quotient_remainder (a, b);
+      N x2 = x1 - p.first * x0;
+      // shift r and x
+      x0 = x1;
+      x1 = x2;
+      a = b;
+      b = p.second;
+    }
+  return std::make_pair (x0, a);
+}
+
+template <ForwardIterator I0, ForwardIterator I1>
+auto
+swap_ranges (I0 f0, I0 l0, I1 f1) -> I1
+{
+  while (f0 != l0)
+    std::swap (*f0++, *f1++);
+  return f1;
+}
+
+template <ForwardIterator I0, ForwardIterator I1>
+auto
+swap_ranges (I0 f0, I0 l0, I1 f1, I1 l1) -> std::pair<I0, I1>
+{
+  while (f0 != l0 && f1 != l1)
+    {
+      std::swap (*f0++, *f1++);
+    }
+  return std::pair<I0, I1> (f0, f1);
+}
+
+template <ForwardIterator I0, ForwardIterator I1, Integer N>
+auto
+swap_ranges (I0 f0, I1 f1, N n) -> std::pair<I0, I1>
+{
+  while (n != N (0))
+    {
+      std::swap (*f0++, *f1++);
+      --n;
+    }
+  return std::pair<I0, I1> (f0, f1);
+}
+
+template <ForwardIterator I>
+void
+gries_mills_rotate (I f, I m, I l)
+{
+  // u = distance (f, m) &&v = distance (m, l)
+  if (f == m || m == l)
+    return; // u == 0 || v == 0
+  std::pair<I, I> p = swap_ranges (f, m, m, l);
+  while (p.first != m || p.second != l)
+    {
+      if (p.first == m)
+        { // u < v
+          f = m;
+          m = p.second; // v = v - u
+        }
+      else
+        {              // v < u
+          f = p.first; // u = u - v
+        }
+      p = swap_ranges (f, m, m, l);
+    }
+  return; // u == v
+}
 }
 
 #endif

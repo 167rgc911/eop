@@ -38,9 +38,12 @@
 #define InputIterator typename
 
 #define EuclideanDomain typename
+#define SteinDomain typename
 
 #define Semiring typename
 
 #define BinaryInteger typename
+
+#define ForwardIterator typename
 
 #endif
