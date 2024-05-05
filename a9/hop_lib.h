@@ -412,6 +412,9 @@ extended_gcd1 (N a, N b) -> std::pair<N, N>
   return std::make_pair (x0, a);
 }
 
+/*
+ * Journey 2; page 272
+ */
 template <ForwardIterator I0, ForwardIterator I1>
 auto
 swap_ranges (I0 f0, I0 l0, I1 f1) -> I1
@@ -421,6 +424,9 @@ swap_ranges (I0 f0, I0 l0, I1 f1) -> I1
   return f1;
 }
 
+/*
+ * Journey 2; page 275
+ */
 template <ForwardIterator I0, ForwardIterator I1>
 auto
 swap_ranges (I0 f0, I0 l0, I1 f1, I1 l1) -> std::pair<I0, I1>
@@ -432,6 +438,9 @@ swap_ranges (I0 f0, I0 l0, I1 f1, I1 l1) -> std::pair<I0, I1>
   return std::pair<I0, I1> (f0, f1);
 }
 
+/*
+ * Journey 2; page 277
+ */
 template <ForwardIterator I0, ForwardIterator I1, Integer N>
 auto
 swap_ranges (I0 f0, I1 f1, N n) -> std::pair<I0, I1>
@@ -444,6 +453,9 @@ swap_ranges (I0 f0, I1 f1, N n) -> std::pair<I0, I1>
   return std::pair<I0, I1> (f0, f1);
 }
 
+/*
+ * Journey 2; page 286
+ */
 template <ForwardIterator I>
 void
 gries_mills_rotate (I f, I m, I l)
