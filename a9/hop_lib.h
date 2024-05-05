@@ -297,4 +297,48 @@ gcd_noether (R m, R n) -> R
 
 }
 
+template <BinaryInteger I>
+auto
+stein_gcd (I m, I n) -> I
+{
+  if (m < I (0))
+    m = -m;
+  if (n < I (0))
+    n = -n;
+  if (m == I (0))
+    return n;
+  if (n == I (0))
+    return m;
+
+  // m > 0 ^ n > 0
+  I d_m = 0;
+  while (even (m))
+    {
+      m >>= 1;
+      ++d_m;
+    }
+
+  I d_n = 0;
+  while (even (n))
+    {
+      n >>= 1;
+      ++d_n;
+    }
+
+  // odd (m) ^ odd (n)
+  while (m != n)
+    {
+      if (n > m)
+        swap (n, m);
+      m -= n;
+
+      do
+        m >>= 1;
+      while (even (m));
+    }
+
+  // m = n
+  return m << min (d_m, d_n);
+}
+
 #endif

@@ -41,4 +41,6 @@
 
 #define Semiring typename
 
+#define BinaryInteger typename
+
 #endif
